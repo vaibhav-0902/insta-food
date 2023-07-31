@@ -1,7 +1,5 @@
 import React from 'react'
 import image_1 from "../assets/Carousel-1.jpg"
-import image_2 from "../assets/Carousel-2.jpg"
-import image_3 from "../assets/Carousel-3.jpg"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel, initTE, } from "tw-elements";
 
