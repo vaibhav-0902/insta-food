@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { data } from '../data/data.js';
-
+const INITIAL_ITEMS = 4;
 const Food = () => {
   //   console.log(data);
   const [foods, setFoods] = useState(data);
+  const [initialItems, setInitialItems] = useState(INITIAL_ITEMS)
+
+  const handleLoadMore = () => {
+    setInitialItems(prev => prev + INITIAL_ITEMS)
+  }
+
 
   //   Filter Type burgers/pizza/etc
   const filterType = (category) => {
@@ -24,86 +30,83 @@ const Food = () => {
   };
 
   return (
-    <div className='max-w-[1640px] m-auto px-4 py-12'>
-      <h1 className='text-orange-600 font-bold text-4xl text-center'>
-        Top Rated Menu Items
+    <div data-aos="fade-in" className='max-w-[1640px] m-auto px-4 py-12'>
+      <h1 className='text-black font-bold text-4xl text-center'>
+        Available Food Items for you
       </h1>
 
       {/* Filter Row */}
       <div className='flex flex-col lg:flex-row justify-between'>
         {/* Fliter Type */}
-        <div>
-          <p className='font-bold text-gray-700'>Filter Type</p>
-          <div className='flex justfiy-between flex-wrap'>
+        <div data-aos="fade-left">
+          <p className='font-bold'>Filter Type</p>
+          <div className='flex my-2  flex-wrap'>
             <button
               onClick={() => setFoods(data)}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
-            >
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'>
               All
             </button>
             <button
               onClick={() => filterType('burger')}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
-            >
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'>
               Burgers
             </button>
             <button
               onClick={() => filterType('pizza')}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
-            >
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'>
               Pizza
             </button>
             <button
               onClick={() => filterType('salad')}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
-            >
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'>
               Salads
             </button>
             <button
               onClick={() => filterType('chicken')}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
-            >
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'>
               Chicken
             </button>
           </div>
         </div>
 
         {/* Filter Price */}
-        <div>
-          <p className='font-bold text-gray-700'>Filter Price</p>
-          <div className='flex justify-between max-w-[390px] w-full'>
+        <div data-aos="fade-right">
+          <p className='font-bold'>Filter Price</p>
+          <div className='flex my-2 justify-between max-w-[390px] w-full'>
             <button
-              onClick={() => filterPrice('$')}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
+              onClick={() => filterPrice('10')}
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'
             >
-              $
+              10
             </button>
             <button
-              onClick={() => filterPrice('$$')}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
+              onClick={() => filterPrice('50')}
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'
             >
-              $$
+              50
             </button>
             <button
-              onClick={() => filterPrice('$$$')}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
+              onClick={() => filterPrice('100')}
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'
             >
-              $$$
+              100
             </button>
             <button
-              onClick={() => filterPrice('$$$$')}
-              className='m-1 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'
+              onClick={() => filterPrice('200')}
+              className='transition-all bg-orange-500 text-white border-none hover:bg-orange-400  rounded-full py-2 mx-2 bottom-4'
             >
-              $$$$
+              200
             </button>
           </div>
         </div>
       </div>
 
       {/* Display foods */}
-      <div className='grid grid-cols-2 lg:grid-cols-4 gap-6 pt-4'>
-        {foods.map((item, index) => (
+      <div data-aos="fade-up" className='grid grid-cols-2 lg:grid-cols-4 gap-6 pt-4'>
+        {foods.slice(0, initialItems).map((item, index) => (
           <div
+          data-aos="fade-up"
+          data-aos-duration="600"
             key={index}
             className='border shadow-lg rounded-lg hover:scale-105 duration-300'
           >
@@ -122,6 +125,15 @@ const Food = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="flex my-10 justify-center items-center">
+        <button
+          disabled={initialItems === data.length - 1}
+          onClick={handleLoadMore}
+          className='flex justify-center transition-all bg-orange-500 border-none hover:text-white hover:bg-orange-400 text-black items-center py-3 rounded-lg'>
+          Load More Items
+        </button>
       </div>
     </div>
   );
